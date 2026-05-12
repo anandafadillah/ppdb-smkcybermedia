@@ -70,6 +70,11 @@ class MenuHelper
                         'path' => '/admin/nilai-rekap',
                     ],
                     [
+                        'icon' => 'chart',
+                        'name' => 'Seleksi',
+                        'path' => '/admin/seleksi',
+                    ],
+                    [
                         'icon' => 'tables',
                         'name' => 'Tahun Penerimaan',
                         'path' => '/admin/tahun-penerimaan',

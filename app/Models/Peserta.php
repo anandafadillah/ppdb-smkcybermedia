@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PesertaSkor;
 
 class Peserta extends Model
 {
@@ -71,6 +72,11 @@ class Peserta extends Model
     public function nilai()
     {
         return $this->hasMany(PesertaNilai::class);
+    }
+
+    public function skor()
+    {
+        return $this->hasOne(PesertaSkor::class);
     }
 
     public function uploadTerkunci(): bool

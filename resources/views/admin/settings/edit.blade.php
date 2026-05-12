@@ -122,6 +122,82 @@
                     class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-800 focus:border-brand-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white/90">{{ old('keterangan_formulir', $settings['keterangan_formulir'] ?? '') }}</textarea>
             </div>
 
+            <hr class="border-gray-100 dark:border-gray-800">
+
+            {{-- Konfigurasi Seleksi --}}
+            <div>
+                <h3 class="text-base font-semibold text-gray-800 dark:text-white/90 mb-1">Konfigurasi Seleksi</h3>
+                <p class="mb-4 text-xs text-gray-400 dark:text-gray-500">
+                    Atur bobot perhitungan dan rentang umur untuk sistem seleksi otomatis.
+                    Total bobot nilai + umur harus 100%.
+                </p>
+
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    {{-- Bobot Nilai Rapot --}}
+                    <div>
+                        <label for="seleksi_bobot_nilai" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Bobot Nilai Rapor (%) <span class="text-error-500">*</span>
+                        </label>
+                        <input type="number" id="seleksi_bobot_nilai" name="seleksi_bobot_nilai"
+                            value="{{ old('seleksi_bobot_nilai', $settings['seleksi_bobot_nilai']) }}"
+                            min="0" max="100"
+                            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-800 focus:border-brand-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 @error('seleksi_bobot_nilai') border-error-500 @enderror">
+                        @error('seleksi_bobot_nilai')
+                            <p class="mt-1 text-xs text-error-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Bobot Umur --}}
+                    <div>
+                        <label for="seleksi_bobot_umur" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Bobot Umur (%) <span class="text-error-500">*</span>
+                        </label>
+                        <input type="number" id="seleksi_bobot_umur" name="seleksi_bobot_umur"
+                            value="{{ old('seleksi_bobot_umur', $settings['seleksi_bobot_umur']) }}"
+                            min="0" max="100"
+                            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-800 focus:border-brand-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 @error('seleksi_bobot_umur') border-error-500 @enderror">
+                        @error('seleksi_bobot_umur')
+                            <p class="mt-1 text-xs text-error-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Umur Minimum --}}
+                    <div>
+                        <label for="seleksi_umur_min" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Umur Minimum (tahun) <span class="text-error-500">*</span>
+                        </label>
+                        <input type="number" id="seleksi_umur_min" name="seleksi_umur_min"
+                            value="{{ old('seleksi_umur_min', $settings['seleksi_umur_min']) }}"
+                            min="1" max="99"
+                            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-800 focus:border-brand-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 @error('seleksi_umur_min') border-error-500 @enderror">
+                        <p class="mt-1 text-xs text-gray-400">Peserta dengan umur ini mendapat skor umur 0.</p>
+                        @error('seleksi_umur_min')
+                            <p class="mt-1 text-xs text-error-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Umur Maksimum --}}
+                    <div>
+                        <label for="seleksi_umur_max" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Umur Maksimum (tahun) <span class="text-error-500">*</span>
+                        </label>
+                        <input type="number" id="seleksi_umur_max" name="seleksi_umur_max"
+                            value="{{ old('seleksi_umur_max', $settings['seleksi_umur_max']) }}"
+                            min="1" max="99"
+                            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-800 focus:border-brand-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 @error('seleksi_umur_max') border-error-500 @enderror">
+                        <p class="mt-1 text-xs text-gray-400">Peserta dengan umur ini mendapat skor umur 100.</p>
+                        @error('seleksi_umur_max')
+                            <p class="mt-1 text-xs text-error-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="mt-3 rounded-lg bg-brand-50 dark:bg-brand-500/10 px-4 py-3 text-xs text-brand-700 dark:text-brand-400">
+                    Formula skor total: <strong>(Rata-rata Nilai × {{ $settings['seleksi_bobot_nilai'] }}%) + (Skor Umur × {{ $settings['seleksi_bobot_umur'] }}%)</strong>.
+                    Skor umur dihitung dari rentang {{ $settings['seleksi_umur_min'] }}–{{ $settings['seleksi_umur_max'] }} tahun per 1 Juli tahun penerimaan.
+                </div>
+            </div>
+
             {{-- Submit --}}
             <div class="flex justify-end pt-2">
                 <button type="submit"

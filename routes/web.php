@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BerkasViewController;
 use App\Http\Controllers\Admin\NilaiRekapController;
+use App\Http\Controllers\Admin\SeleksiController;
 use App\Http\Controllers\Admin\PesertaController as AdminPesertaController;
 use App\Http\Controllers\Admin\JalurPendaftaranController;
 use App\Http\Controllers\Admin\JurusanController;
@@ -112,6 +113,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('nilai-rekap/export', [NilaiRekapController::class, 'export'])->name('nilai-rekap.export');
     Route::get('nilai-rekap', [NilaiRekapController::class, 'index'])->name('nilai-rekap.index');
     Route::get('berkas/{berkas}/download', [BerkasViewController::class, 'download'])->name('berkas.download');
+
+    Route::get('seleksi', [SeleksiController::class, 'index'])->name('seleksi.index');
+    Route::post('seleksi/hitung-semua', [SeleksiController::class, 'hitungSemua'])->name('seleksi.hitung-semua');
+    Route::post('seleksi/terapkan-hasil', [SeleksiController::class, 'terapkanHasil'])->name('seleksi.terapkan-hasil');
 
     Route::get('pengguna', [UserController::class, 'index'])->name('pengguna.index');
     Route::get('pengguna/create', [UserController::class, 'create'])->name('pengguna.create');
